@@ -100,7 +100,7 @@ def lee_ultima_sesion(ip=IP_DATALOGGER):
     return data
 
 
-def comprueba_hora_ftp(ip=IP_DATALOGGER, umbral=100):
+def comprueba_hora_ftp(ip=IP_DATALOGGER):
     fichero = nombre_fichero_ultima_sesion(ip)
     
     with FTP(host=IP_DATALOGGER) as ftp:
@@ -117,5 +117,5 @@ def comprueba_hora_ftp(ip=IP_DATALOGGER, umbral=100):
         dt_actual = dt.datetime.now().replace(year=1900, month=1, day=1)
     
         diferencia_segundos = abs((dt_fichero - dt_actual).total_seconds())   
-        if diferencia_segundos > umbral:
-            print('EY')
+        
+        return diferencia_segundos
