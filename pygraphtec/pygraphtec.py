@@ -116,8 +116,6 @@ def diferencia_segundos_comprueba_hora_ftp(ip=IP_DATALOGGER):
         dt_fichero = dt.datetime.combine(dt.date.today(), dt.time.fromisoformat(time_file))
         dt_actual = dt.datetime.now()
         
-        print(dt_fichero, dt_actual)
-    
         diferencia_segundos = abs((dt_fichero - dt_actual).total_seconds())   
         
         return diferencia_segundos
