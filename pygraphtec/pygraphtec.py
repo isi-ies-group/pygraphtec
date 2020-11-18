@@ -100,7 +100,7 @@ def lee_ultima_sesion(ip=IP_DATALOGGER):
     return data
 
 
-def comprueba_hora_ftp(ip=IP_DATALOGGER):
+def diferencia_segundos_comprueba_hora_ftp(ip=IP_DATALOGGER):
     fichero = nombre_fichero_ultima_sesion(ip)
     
     with FTP(host=IP_DATALOGGER) as ftp:
