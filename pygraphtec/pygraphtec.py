@@ -112,8 +112,12 @@ def diferencia_segundos_comprueba_hora_ftp(ip=IP_DATALOGGER):
         
         file_prop = [filename for filename in file_list if '.CSV' in filename]
         time_file = file_prop[0].split()[-2]
+        day_file = file_prop[0].split()[-3]
+        month_file = file_prop[0].split()[-4]
         
         dt_fichero = dt.datetime.combine(dt.date.today(), dt.time.fromisoformat(time_file))
+        dt_fichero = dt_fichero.replace(day=day_file, month=dt.datetime.strptime(month_file, '%b').month)
+        
         dt_actual = dt.datetime.now()
         
         diferencia_segundos = abs((dt_fichero - dt_actual).total_seconds())   
