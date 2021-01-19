@@ -1,4 +1,4 @@
 # pygraphtec
 
 Para instalarlo como paquete:
-`pip install --upgrade git+https://github.com/isi-ies-group/pygraphtec.git`
+`pip install --force-reinstall --no-deps git+https://github.com/isi-ies-group/pygraphtec.git`
