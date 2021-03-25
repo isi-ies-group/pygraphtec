@@ -14,7 +14,14 @@ import pandas as pd
 IP_DATALOGGER = '138.4.46.201'
 
 def lee_fichero_gl840(file):
-    data = pd.read_csv(file, skiprows=37, parse_dates=True, index_col=1, sep=',')
+    if isinstance(file, io.BytesIO):
+        SKIPROWS = 40 # desde el 210304-115022.csv hay 3 nuevos termopares añadidos por Steve, por lo que la cabecera aumenta!
+    elif int(file.stem[:6]) >= 210324:
+        SKIPROWS = 40
+    else:
+        SKIPROWS = 37
+        
+    data = pd.read_csv(file, skiprows=SKIPROWS, parse_dates=True, index_col=1, sep=',')
     
     # Deja las columnas que interesan
     data = data[['V', 'V.1', 'V.2', 'V.3', 'V.4', 'V.5',
