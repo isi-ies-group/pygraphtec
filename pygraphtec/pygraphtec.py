@@ -11,17 +11,29 @@ import datetime as dt
 
 import pandas as pd
 
-IP_DATALOGGER = '138.4.46.201'
+IP_DATALOGGER = '138.4.46.99'
 
 def lee_fichero_gl840(file):
-    if isinstance(file, io.BytesIO):
-        SKIPROWS = 40 # desde el 210304-115022.csv hay 3 nuevos termopares añadidos por Steve, por lo que la cabecera aumenta!
-    elif int(file.stem[:6]) >= 210324:
-        SKIPROWS = 40
-    else:
-        SKIPROWS = 37
+    # if isinstance(file, io.BytesIO):
+        # SKIPROWS = 40 # desde el 210304-115022.csv hay 3 nuevos termopares añadidos por Steve, por lo que la cabecera aumenta!
+    # elif int(file.stem[:6]) >= 210324:
+        # SKIPROWS = 40
+    # else:
+        # SKIPROWS = 37
         
-    data = pd.read_csv(file, skiprows=SKIPROWS, parse_dates=True, index_col=1, sep=',')
+    # pre-lee archivo y lee lineas hasta llegar a datos para saber cuantas lineas descartar
+    if isinstance(file, io.BytesIO): # case de recibir un flujo de sesion en curso desde FTP
+        f = io.StringIO(file.getvalue().decode('UTF-8')) # hace copia, ya que al recorrerlo se pierde
+    else:
+        f = open(file, 'r')
+
+    for num_linea, line in enumerate(f):
+        if line.startswith('NO.'):
+            break
+    
+    f.close()
+    
+    data = pd.read_csv(file, skiprows=num_linea, parse_dates=True, index_col=1, sep=',')
     
     # Deja las columnas que interesan
     data = data[['V', 'V.1', 'V.2', 'V.3', 'V.4', 'V.5',
