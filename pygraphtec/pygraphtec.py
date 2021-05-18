@@ -37,7 +37,7 @@ def lee_fichero_gl840(file):
     
     # Deja las columnas que interesan
     data = data[['V', 'V.1', 'V.2', 'V.3', 'V.4', 'V.5',
-                 'V.6', 'V.7', 'degC', 'degC.1', 'degC.2', 'degC.3']]
+                 'V.6', 'V.7', 'degC', 'degC.1', 'degC.2', 'degC.3', 'degC.4', 'degC.5', 'degC.6']]
     
     # Quitar los espacios que se encuentran entre el caracter '+' y el digito
     data = data.replace(" ", "", regex=True)
@@ -56,7 +56,9 @@ def lee_fichero_gl840(file):
                                 'V.2': 'CH3:M2-TEMP', 'V.3': 'CH4:M2-RH', 'V.4': 'CH5:C-TEMP',
                                 'V.5': 'CH6:C-RH','V.6': 'CH7:M2-SP', 'V.7': 'CH8:M1-SP',
                                 'degC': 'CH9:M1-Tp FS', 'degC.1': 'CH10:M1-Tp BS',
-                                'degC.2': 'CH11:M2-Tp FS', 'degC.3': 'CH12:M2-TP BS'})
+                                'degC.2': 'CH11:M2-Tp FS', 'degC.3': 'CH12:M2-TP BS',
+                                'degC.4': 'CH13', 'degC.5': 'CH14',
+                                'degC.6': 'CH15'})
 
     return data
 
